@@ -6,7 +6,7 @@ class Database {
     
     private function __construct() {
         $host = $_ENV['DB_HOST'] ?? 'localhost';
-        $dbname = $_ENV['DB_NAME'] ?? 'agan_cafe';
+        $dbname = $_ENV['DB_NAME'] ?? 'restaurant';
         $username = $_ENV['DB_USER'] ?? 'root';
         $password = $_ENV['DB_PASS'] ?? '';
         

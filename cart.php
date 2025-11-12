@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             
             if ($productId && $quantity && $quantity > 0) {
                 // Verify product exists and is available
-                $stmt = $pdo->prepare("SELECT id FROM products WHERE id = ? AND is_available = 1");
+                $stmt = $pdo->prepare("SELECT id FROM products WHERE id = ?");
                 $stmt->execute([$productId]);
                 
                 if ($stmt->fetch()) {
@@ -101,7 +101,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
         
         try {
-            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders) AND is_available = 1");
+            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
             $stmt->execute($productIds);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             

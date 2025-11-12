@@ -114,8 +114,8 @@ if ($_POST && isset($_POST['place_order'])) {
     
     if (empty($formData['address'])) {
         $errors['address'] = "Delivery address is required";
-    } else if (strlen($formData['address']) < 10) {
-        $errors['address'] = "Address must be at least 10 characters long";
+    } else if (strlen($formData['address']) < 2) {
+        $errors['address'] = "Address must be at least 2 characters long";
     } else if (strlen($formData['address']) > 255) {
         $errors['address'] = "Address must be less than 255 characters";
     }
@@ -162,7 +162,7 @@ if ($_POST && isset($_POST['place_order'])) {
             
             // Add order items
             foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $pdo->prepare("SELECT price, name FROM products WHERE id = ? AND is_available = 1");
+                $stmt = $pdo->prepare("SELECT price, name FROM products WHERE id = ?");
                 $stmt->execute([$productId]);
                 $product = $stmt->fetch();
                 
@@ -321,7 +321,7 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                             <label for="address">Delivery Address *</label>
                             <textarea id="address" name="address" required rows="3"
                                       class="<?php echo isset($errors['address']) ? 'error' : ''; ?>"
-                                      minlength="10" maxlength="255"><?php echo h($formData['address']); ?></textarea>
+                                      minlength="4" maxlength="255"><?php echo h($formData['address']); ?></textarea>
                             <?php if (isset($errors['address'])): ?>
                                 <span class="error-message"><?php echo h($errors['address']); ?></span>
                             <?php endif; ?>
@@ -344,7 +344,7 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                             $productIds = array_keys($_SESSION['cart']);
                             $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
-                            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders) AND is_available = 1");
+                            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
                             $stmt->execute($productIds);
                             $products = $stmt->fetchAll();
                             

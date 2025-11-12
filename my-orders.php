@@ -113,14 +113,9 @@ $orders = $stmt->fetchAll();
                                 <span>Tax:</span>
                                 <span><?php echo formatCurrency($order['tax_amount']); ?></span>
                             </div>
-                            <?php if ($order['discount_amount'] > 0): ?>
-                                <div class="summary-row discount">
-                                    <span>Discount:</span>
-                                    <span>-<?php echo formatCurrency($order['discount_amount']); ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <div class="summary-row total">
-                                <strong>Total: <?php echo formatCurrency($order['total']); ?></strong>
+                            <div class="summary-row total" style="font-weight: bold; font-size: 18px; color: #08420dff;">
+                                <strong>Total:</strong>
+                                <strong> <?php echo formatCurrency($order['total']); ?></strong>
                             </div>
                         </div>
                         

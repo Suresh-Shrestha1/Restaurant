@@ -4,7 +4,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Agan Cafe</h3>
+                    <h3>Maharaja Restaurant</h3>
                     <p>Serving delicious meals since 2020. Quality food, friendly service, and a cozy atmosphere.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -43,7 +43,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p style="color: #fff;">&copy; 2025 Agan Cafe. All rights reserved.</p>
+                <p style="color: #fff;">&copy; 2025 Maharaja Restaurant. All rights reserved.</p>
             </div>
         </div>
     </footer>

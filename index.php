@@ -9,7 +9,7 @@ $featuredProducts = $stmt->fetchAll();
 
 <section class="hero">
     <div class="hero-content">
-        <h1>Welcome to Agan Cafe</h1>
+        <h1>Welcome to Maharaja Restaurant</h1>
         <p>Experience the finest dining with our carefully crafted menu featuring fresh ingredients and bold flavors.</p>
         <a href="menu.php" class="btn btn-primary">View Our Menu</a>
     </div>
@@ -65,8 +65,8 @@ $featuredProducts = $stmt->fetchAll();
     <div class="container">
         <div class="about-content">
             <div class="about-text">
-                <h2>About Agan Cafe</h2>
-                <p>Since 2020, Agan Cafe has been serving the community with exceptional food and warm hospitality. Our passion for culinary excellence drives us to create memorable dining experiences for every guest.</p>
+                <h2>About Maharaja Restaurant</h2>
+                <p>Since 2020, Maharaja Restaurant has been serving the community with exceptional food and warm hospitality. Our passion for culinary excellence drives us to create memorable dining experiences for every guest.</p>
                 <p>We believe in using only the freshest ingredients, supporting local suppliers, and preparing every dish with care and attention to detail.</p>
                 <div class="features">
                     <div class="feature">

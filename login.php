@@ -89,7 +89,7 @@ if ($_POST && isset($_POST['login'])) {
 }
 
 // Set page title and include header AFTER all potential redirects
-$pageTitle = "Login - Agan Cafe";
+$pageTitle = "Login - Maharaja Restaurant";
 require_once 'includes/header.php';
 ?>
 

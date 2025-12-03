@@ -36,7 +36,7 @@ requireAdminLogin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($pageTitle) ? h($pageTitle) . ' - ' : ''; ?>Admin Panel - Agan Cafe</title>
+    <title><?php echo isset($pageTitle) ? h($pageTitle) . ' - ' : ''; ?>Admin Panel - Maharaja Restaurant</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="css/admin.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -45,8 +45,8 @@ requireAdminLogin();
     <div class="admin-container">
         <nav class="admin-sidebar">
             <div class="sidebar-header">
-                <h3><img src="../uploads/logo.png" alt="Agan Cafe Logo" style="height: 60px; width: auto;">
-                 Agan Cafe</h3>
+                <h3><img src="../uploads/Maharaja_Restaurant.png" alt="Maharaja Restaurant Logo" style="height: 60px; width: auto;">
+                 Maharaja Restaurant</h3>
                 <p>Admin Panel</p>
             </div>
             

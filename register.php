@@ -722,7 +722,7 @@ if ($_POST && isset($_POST['register'])) {
 <div class="auth-container">
     <div class="auth-card">
         <h2>Create Account</h2>
-        <p>Join Agan Cafe today</p>
+        <p>Join Maharaja Restaurant today</p>
         
         <?php if ($success): ?>
             <div class="alert alert-success">

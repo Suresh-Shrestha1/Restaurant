@@ -10,7 +10,7 @@ $featuredProducts = $stmt->fetchAll();
 <section class="hero">
     <div class="hero-content">
         <h1>Welcome to Maharaja Restaurant</h1>
-        <p>Experience the finest dining with our carefully crafted menu featuring fresh ingredients and bold flavors.</p>
+        <p>Where royal Nepali flavors meet timeless elegance. Indulge in a truly authentic dining experience, featuring traditional dishes crafted with the finest ingredients, served in a regal setting. Whether you're here for a casual meal or a special celebration, let us treat you to a royal feast fit for kings and queens. Join us and discover the taste of Nepal’s royal heritage.</p>
         <a href="menu.php" class="btn btn-primary">View Our Menu</a>
     </div>
     <div class="hero-image">
@@ -66,8 +66,8 @@ $featuredProducts = $stmt->fetchAll();
         <div class="about-content">
             <div class="about-text">
                 <h2>About Maharaja Restaurant</h2>
-                <p>Since 2020, Maharaja Restaurant has been serving the community with exceptional food and warm hospitality. Our passion for culinary excellence drives us to create memorable dining experiences for every guest.</p>
-                <p>We believe in using only the freshest ingredients, supporting local suppliers, and preparing every dish with care and attention to detail.</p>
+                <p>Since 2020, Maharaja Restaurant has been a cornerstone of exceptional Nepali cuisine and heartfelt hospitality. With a deep passion for culinary excellence, we strive to create unforgettable dining experiences for each guest that walks through our doors.</p>
+                <p>At Maharaja, we take pride in sourcing only the freshest ingredients from local suppliers, ensuring that every dish is prepared with the utmost care and authenticity. From the spices to the herbs, we blend tradition with quality, offering a taste of Nepali royalty with every meal. Whether you’re here for a casual meal or a special celebration, our commitment to flavor, warmth, and service ensures that you feel like royalty every time you visit.</p>
                 <div class="features">
                     <div class="feature">
                         <i class="fas fa-leaf"></i>

@@ -450,9 +450,7 @@ $stats = $pdo->query($statsQuery)->fetch();
 }
 
 .filter-form .btn-primary {
-    background-color: #007bff;
     color: white;
-    border-color: #007bff;
     width: 200px;
 }
 

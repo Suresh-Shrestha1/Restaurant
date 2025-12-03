@@ -25,6 +25,10 @@
     margin: 0 auto;
 }
 
+p{
+    color: #333;
+}
+
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;

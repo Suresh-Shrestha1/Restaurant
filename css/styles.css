@@ -550,7 +550,7 @@ p {
     display: flex;
     align-items: center;
     min-height: 90vh;
-    padding: 0 var(--space-xl);
+    padding: 0 var(--space-3xl);
     background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
     position: relative;
     overflow: hidden;
@@ -2065,7 +2065,7 @@ p {
     }
     
     .hero {
-        flex-direction: column;
+        flex-direction: column-reverse;
         text-align: center;
         padding: var(--space-2xl);
     }
@@ -2084,7 +2084,8 @@ p {
     }
     
     .hero-image img {
-        height: 350px;
+        width: 350px;
+        margin: 0 auto;
     }
     
     .products-grid {

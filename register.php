@@ -726,7 +726,7 @@ if ($_POST && isset($_POST['register'])) {
         
         <?php if ($success): ?>
             <div class="alert alert-success">
-                <p>
+                <p style="color: #000">
                     <i class="fas fa-check-circle"></i>
                     Account created successfully! <a href="login.php">Click here to login</a>
                 </p>

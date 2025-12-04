@@ -348,13 +348,15 @@ if ($_POST && isset($_POST['login'])) {
         content: '\f023';
         font-family: 'Font Awesome 6 Free';
         font-weight: 900;
-        margin-right: 4px;
+        top:12px;
+        right: 75px;
     }
     
     .btn-primary:hover:not(:disabled) {
         background: #2563eb;
         box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         transform: translateY(-2px);
+        color: #fff;
     }
     
     .btn-primary:active {

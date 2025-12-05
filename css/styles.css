@@ -1680,6 +1680,8 @@ p {
     font-size: 0.9rem;
     color: #6c757d;
     margin: 0 0 0.5rem;
+    padding: 18px;
+    text-align: justify;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -2098,15 +2100,6 @@ p {
         gap: 0.75rem;
     }
     
-    .item-quantity,
-    .item-total {
-        grid-column: 2 / 4;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0.5rem;
-    }
-    
     .item-remove {
         grid-column: 3;
         grid-row: 1;
@@ -2150,6 +2143,10 @@ p {
     
     .page-header h1 {
         font-size: 1.8rem;
+    }
+
+    .quantity-controls {
+        margin-left: 100px;
     }
 }
 
@@ -2279,6 +2276,10 @@ p {
         border-radius: 20px;
     }
     
+    .item-description {
+        display: none;
+    }
+
     .qty-btn {
         width: 30px;
         height: 30px;

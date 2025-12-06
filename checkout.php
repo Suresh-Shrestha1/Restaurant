@@ -3,6 +3,10 @@
 require_once 'config/database.php';
 require_once 'includes/functions.php';
 
+// Define delivery and tax constants (easy to modify)
+define('DELIVERY_FEE', 50.00);
+define('TAX_RATE', 13.00); // percentage
+
 // Check if user is logged in - redirect to login if not
 if (!isLoggedIn()) {
     // Store the intended destination (checkout) in session for redirect after login
@@ -127,14 +131,8 @@ if ($_POST && isset($_POST['place_order'])) {
             
             // Calculate totals
             $subtotal = getCartTotal($pdo);
-            
-            // Get settings from database
-            $stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('delivery_fee', 'tax_rate')");
-            $stmt->execute();
-            $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-            
-            $deliveryFee = floatval($settings['delivery_fee'] ?? 50.00);
-            $taxRate = floatval($settings['tax_rate'] ?? 13.00);
+            $deliveryFee = DELIVERY_FEE;
+            $taxRate = TAX_RATE;
             $taxAmount = ($subtotal * $taxRate) / 100;
             $total = $subtotal + $deliveryFee + $taxAmount;
             
@@ -147,7 +145,7 @@ if ($_POST && isset($_POST['place_order'])) {
             ");
             
             $stmt->execute([
-                $_SESSION['user_id'], // Now we know user is logged in
+                $_SESSION['user_id'],
                 $formData['name'], 
                 $formData['phone'], 
                 $formData['email'] ?: null, 
@@ -219,16 +217,10 @@ if ($_POST && isset($_POST['place_order'])) {
     }
 }
 
-// Calculate display totals (consistent with order creation)
+// Calculate display totals
 $subtotal = getCartTotal($pdo);
-
-// Get settings from database for display
-$stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('delivery_fee', 'tax_rate')");
-$stmt->execute();
-$settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-
-$deliveryFee = floatval($settings['delivery_fee'] ?? 50.00);
-$taxRate = floatval($settings['tax_rate'] ?? 13.00);
+$deliveryFee = DELIVERY_FEE;
+$taxRate = TAX_RATE;
 $taxAmount = ($subtotal * $taxRate) / 100;
 $total = $subtotal + $deliveryFee + $taxAmount;
 ?>
@@ -251,16 +243,16 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                     <a href="my-orders.php" class="btn btn-outline">View My Orders</a>
                 </div>
             </div>
-              <script>
-    // Update cart count immediately
-    document.addEventListener('DOMContentLoaded', function() {
-        // Hide all cart badges
-        document.querySelectorAll('.cart-count, .cart-badge').forEach(el => {
-            el.textContent = '0';
-            el.style.display = 'none';
-        });
-    });
-    </script>
+            <script>
+                // Update cart count immediately
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Hide all cart badges
+                    document.querySelectorAll('.cart-count, .cart-badge').forEach(el => {
+                        el.textContent = '0';
+                        el.style.display = 'none';
+                    });
+                });
+            </script>
         <?php else: ?>
             <?php if (!empty($errors)): ?>
                 <div class="alert alert-error">

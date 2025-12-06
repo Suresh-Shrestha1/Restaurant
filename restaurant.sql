@@ -239,34 +239,6 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `price`, `im
 -- --------------------------------------------------------
 
 --
--- Table structure for table `settings`
---
-
-CREATE TABLE `settings` (
-  `id` int(11) NOT NULL,
-  `setting_key` varchar(100) NOT NULL,
-  `setting_value` text DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `settings`
---
-
-INSERT INTO `settings` (`id`, `setting_key`, `setting_value`, `description`, `updated_at`) VALUES
-(1, 'site_name', 'Agan Cafe', 'Website name', '2025-09-20 04:04:51'),
-(2, 'delivery_fee', '50.00', 'Standard delivery fee', '2025-09-20 04:04:51'),
-(3, 'min_order_amount', '200.00', 'Minimum order amount for delivery', '2025-09-20 04:04:51'),
-(4, 'tax_rate', '13.00', 'Tax rate percentage', '2025-09-20 04:04:51'),
-(5, 'restaurant_phone', '+977-1-4567890', 'Restaurant contact number', '2025-09-20 04:04:51'),
-(6, 'restaurant_email', 'info@agancafe.com', 'Restaurant email', '2025-09-20 04:04:51'),
-(7, 'restaurant_address', '123 Food Street, Kathmandu, Nepal', 'Restaurant address', '2025-09-20 04:04:51'),
-(8, 'opening_hours', 'Mon-Fri: 9AM-10PM, Sat: 10AM-11PM, Sun: 10AM-9PM', 'Restaurant opening hours', '2025-09-20 04:04:51');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -347,14 +319,6 @@ ALTER TABLE `products`
   ADD KEY `idx_category_id` (`category_id`);
 
 --
--- Indexes for table `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `setting_key` (`setting_key`),
-  ADD KEY `idx_key` (`setting_key`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -404,10 +368,6 @@ ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `settings`
---
-ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

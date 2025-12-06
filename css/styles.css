@@ -1296,12 +1296,26 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.2rem;
     padding: var(--space-md) 0;
     border-bottom: 1px solid var(--gray-100);
 }
 
 .summary-item:last-child {
     border-bottom: none;
+}
+
+.total-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid var(--gray-200);
+    padding-top: var(--space-lg);
+}
+
+.total-row:last-child {
+    font-size: 1.1rem;
+    color: var(--gray-900);
 }
 
 .order-success {

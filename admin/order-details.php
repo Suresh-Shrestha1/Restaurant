@@ -323,7 +323,7 @@ try {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    width: 280px;
+    width: 100%;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }

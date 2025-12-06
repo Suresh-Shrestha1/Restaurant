@@ -90,7 +90,7 @@ $totalPages = ceil($totalOrders / $perPage);
 $query = "
     SELECT o.*, u.email as user_email,
            COUNT(oi.id) as item_count,
-           GROUP_CONCAT(COALESCE(oi.product_name, p.name, 'Deleted Product') SEPARATOR ', ') as product_names
+           GROUP_CONCAT(p.name SEPARATOR ', ') as product_names
     FROM orders o 
     LEFT JOIN users u ON o.user_id = u.id 
     LEFT JOIN order_items oi ON o.id = oi.order_id
@@ -450,7 +450,9 @@ $stats = $pdo->query($statsQuery)->fetch();
 }
 
 .filter-form .btn-primary {
+    background-color: #007bff;
     color: white;
+    border-color: #007bff;
     width: 200px;
 }
 

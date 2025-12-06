@@ -40,6 +40,7 @@ if ($_POST && isset($_POST['login'])) {
        if ($admin && (password_verify($password, $admin['password']) || $password === $admin['password'])) {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_username'] = $admin['username'];
+            $_SESSION['admin_role'] = $admin['role']; // Fixed this line
             
             // Update last login
             $updateStmt = $pdo->prepare("UPDATE admin_users SET last_login_at = NOW() WHERE id = ?");
@@ -58,7 +59,7 @@ if ($_POST && isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Maharaja Restaurant</title>
+    <title>Admin Login - Agan Cafe</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -348,15 +349,13 @@ if ($_POST && isset($_POST['login'])) {
         content: '\f023';
         font-family: 'Font Awesome 6 Free';
         font-weight: 900;
-        top:12px;
-        right: 75px;
+        margin-right: 4px;
     }
     
     .btn-primary:hover:not(:disabled) {
         background: #2563eb;
         box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         transform: translateY(-2px);
-        color: #fff;
     }
     
     .btn-primary:active {

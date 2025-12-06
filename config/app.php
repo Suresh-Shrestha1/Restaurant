@@ -2,7 +2,7 @@
 // config/app.php - Application configuration
 return [
     // Application Settings
-    'name' => 'Maharaja Restaurant',
+    'name' => 'Agan Cafe',
     'version' => '2.0.0',
     'environment' => $_ENV['APP_ENV'] ?? 'production', // development, testing, production
     'debug' => filter_var($_ENV['APP_DEBUG'] ?? false, FILTER_VALIDATE_BOOLEAN),
@@ -65,7 +65,7 @@ return [
         'encryption' => 'tls',
         'from' => [
             'address' => $_ENV['MAIL_FROM_ADDRESS'] ?? 'noreply@agancafe.com',
-            'name' => $_ENV['MAIL_FROM_NAME'] ?? 'Maharaja Restaurant',
+            'name' => $_ENV['MAIL_FROM_NAME'] ?? 'Agan Cafe',
         ],
     ],
     

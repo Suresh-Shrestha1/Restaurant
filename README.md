@@ -1,4 +1,4 @@
-# Maharaja Restaturant - Restaurant Food Ordering System
+# Agan Cafe - Restaurant Food Ordering System
 
 A complete restaurant food ordering website built with PHP, MySQL, HTML, CSS, and JavaScript.
 

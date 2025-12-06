@@ -53,6 +53,7 @@ if ($_POST && isset($_POST['login'])) {
             if ($admin && (password_verify($password, $admin['password']) || $password === $admin['password'])) {
                 $_SESSION['admin_id'] = $admin['id'];
                 $_SESSION['admin_username'] = $admin['username'];
+               $_SESSION['admin_role'] = $admin['role']; 
                 // Update last login
                 $updateStmt = $pdo->prepare("UPDATE admin_users SET last_login_at = NOW() WHERE id = ?");
                 $updateStmt->execute([$admin['id']]);
@@ -88,7 +89,7 @@ if ($_POST && isset($_POST['login'])) {
 }
 
 // Set page title and include header AFTER all potential redirects
-$pageTitle = "Login - Maharaja Restaurant";
+$pageTitle = "Login - Agan Cafe";
 require_once 'includes/header.php';
 ?>
 

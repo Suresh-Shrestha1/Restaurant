@@ -20,8 +20,8 @@ $flashMessage = getFlashMessage();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo h($pageTitle ?? 'Maharaja Restaurant'); ?> - Maharaja Restaurant</title>
-    <meta name="description" content="Delicious food delivered fresh to your door. Order online from Maharaja Restaurant.">
+    <title><?php echo h($pageTitle ?? 'Agan Cafe'); ?> - Agan Cafe</title>
+    <meta name="description" content="Delicious food delivered fresh to your door. Order online from Agan Cafe.">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="css/styles.css" as="style">
@@ -34,7 +34,7 @@ $flashMessage = getFlashMessage();
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <!-- Open Graph tags -->
-    <meta property="og:title" content="<?php echo h($pageTitle ?? 'Maharaja Restaurant'); ?>">
+    <meta property="og:title" content="<?php echo h($pageTitle ?? 'Agan Cafe'); ?>">
     <meta property="og:description" content="Delicious food delivered fresh to your door">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?php echo h($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>">
@@ -43,8 +43,8 @@ $flashMessage = getFlashMessage();
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.php" class="nav-brand">
-                <img src="uploads/Maharaja_Restaurant.png" alt="Maharaja Restaurant Logo" style="height: 70px; width: auto;">
-                Maharaja Restaurant
+                <img src="uploads/logo.png" alt="Agan Cafe Logo" style="height: 60px; width: auto;">
+                Agan Cafe
             </a>
             
             <div class="nav-menu" id="nav-menu">

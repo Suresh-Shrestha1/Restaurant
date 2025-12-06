@@ -16,41 +16,11 @@ $selectedCategory = isset($_GET['category']) ? (int)$_GET['category'] : null;
 // Get search query
 $searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Get products (with is_active filter)
+// Get products
 if ($searchQuery) {
-    // Search products - only active
-    $stmt = $pdo->prepare("
-        SELECT p.*, c.name as category_name 
-        FROM products p 
-        JOIN categories c ON p.category_id = c.id 
-        WHERE p.is_active = 1 
-        AND (p.name LIKE ? OR p.description LIKE ? OR c.name LIKE ?)
-        ORDER BY p.name
-    ");
-    $searchTerm = '%' . $searchQuery . '%';
-    $stmt->execute([$searchTerm, $searchTerm, $searchTerm]);
-    $products = $stmt->fetchAll();
-} elseif ($selectedCategory) {
-    // Get products by category - only active
-    $stmt = $pdo->prepare("
-        SELECT p.*, c.name as category_name 
-        FROM products p 
-        JOIN categories c ON p.category_id = c.id 
-        WHERE p.category_id = ? AND p.is_active = 1
-        ORDER BY p.name
-    ");
-    $stmt->execute([$selectedCategory]);
-    $products = $stmt->fetchAll();
+    $products = searchProducts($pdo, $searchQuery);
 } else {
-    // Get all products - only active
-    $stmt = $pdo->query("
-        SELECT p.*, c.name as category_name 
-        FROM products p 
-        JOIN categories c ON p.category_id = c.id 
-        WHERE p.is_active = 1
-        ORDER BY c.name, p.name
-    ");
-    $products = $stmt->fetchAll();
+    $products = getProductsByCategory($pdo, $selectedCategory);
 }
 ?>
 

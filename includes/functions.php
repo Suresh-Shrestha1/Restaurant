@@ -37,7 +37,10 @@ function isLoggedIn(): bool {
 }
 
 function isAdminLoggedIn(): bool {
-    return isset($_SESSION['admin_id']) && !empty($_SESSION['admin_id']);
+    return isset($_SESSION['admin_id']) && 
+           !empty($_SESSION['admin_id']) &&
+           isset($_SESSION['admin_role']) &&
+           in_array($_SESSION['admin_role'], ['Super Admin', 'Manager', 'Staff']);
 }
 
 function requireLogin(): void {

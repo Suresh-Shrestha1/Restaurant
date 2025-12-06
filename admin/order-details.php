@@ -77,12 +77,12 @@ try {
                 <label>Address:</label>
                 <span><?php echo nl2br(h($order['address'])); ?></span>
             </div>
-            <!-- <?php if ($order['delivery_instructions']): ?>
+            <?php if ($order['delivery_instructions']): ?>
             <div class="info-item">
                 <label>Instructions:</label>
                 <span><?php echo h($order['delivery_instructions']); ?></span>
             </div>
-            <?php endif; ?> -->
+            <?php endif; ?>
             <div class="info-item">
                 <label>Payment Method:</label>
                 <span><?php echo h($order['payment_method']); ?></span>
@@ -147,12 +147,12 @@ try {
             <label>Tax:</label>
             <span><?php echo formatCurrency($order['tax_amount']); ?></span>
         </div>
-        <!-- <?php if ($order['discount_amount'] > 0): ?>
+        <?php if ($order['discount_amount'] > 0): ?>
         <div class="summary-item">
             <label>Discount:</label>
             <span>-<?php echo formatCurrency($order['discount_amount']); ?></span>
         </div>
-        <?php endif; ?> -->
+        <?php endif; ?>
         <div class="summary-item total">
             <label>Total:</label>
             <span><?php echo formatCurrency($order['total']); ?></span>
@@ -323,7 +323,7 @@ try {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    width: 100%;
+    width: 280px;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }

@@ -3,10 +3,6 @@
 require_once 'config/database.php';
 require_once 'includes/functions.php';
 
-// Define delivery and tax constants (easy to modify)
-define('DELIVERY_FEE', 50.00);
-define('TAX_RATE', 13.00); // percentage
-
 // Check if user is logged in - redirect to login if not
 if (!isLoggedIn()) {
     // Store the intended destination (checkout) in session for redirect after login
@@ -118,8 +114,8 @@ if ($_POST && isset($_POST['place_order'])) {
     
     if (empty($formData['address'])) {
         $errors['address'] = "Delivery address is required";
-    } else if (strlen($formData['address']) < 2) {
-        $errors['address'] = "Address must be at least 2 characters long";
+    } else if (strlen($formData['address']) < 10) {
+        $errors['address'] = "Address must be at least 10 characters long";
     } else if (strlen($formData['address']) > 255) {
         $errors['address'] = "Address must be less than 255 characters";
     }
@@ -131,8 +127,14 @@ if ($_POST && isset($_POST['place_order'])) {
             
             // Calculate totals
             $subtotal = getCartTotal($pdo);
-            $deliveryFee = DELIVERY_FEE;
-            $taxRate = TAX_RATE;
+            
+            // Get settings from database
+            $stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('delivery_fee', 'tax_rate')");
+            $stmt->execute();
+            $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+            
+            $deliveryFee = floatval($settings['delivery_fee'] ?? 50.00);
+            $taxRate = floatval($settings['tax_rate'] ?? 13.00);
             $taxAmount = ($subtotal * $taxRate) / 100;
             $total = $subtotal + $deliveryFee + $taxAmount;
             
@@ -145,7 +147,7 @@ if ($_POST && isset($_POST['place_order'])) {
             ");
             
             $stmt->execute([
-                $_SESSION['user_id'],
+                $_SESSION['user_id'], // Now we know user is logged in
                 $formData['name'], 
                 $formData['phone'], 
                 $formData['email'] ?: null, 
@@ -160,7 +162,7 @@ if ($_POST && isset($_POST['place_order'])) {
             
             // Add order items
             foreach ($_SESSION['cart'] as $productId => $quantity) {
-                $stmt = $pdo->prepare("SELECT price, name FROM products WHERE id = ?");
+                $stmt = $pdo->prepare("SELECT price, name FROM products WHERE id = ? AND is_available = 1");
                 $stmt->execute([$productId]);
                 $product = $stmt->fetch();
                 
@@ -217,10 +219,16 @@ if ($_POST && isset($_POST['place_order'])) {
     }
 }
 
-// Calculate display totals
+// Calculate display totals (consistent with order creation)
 $subtotal = getCartTotal($pdo);
-$deliveryFee = DELIVERY_FEE;
-$taxRate = TAX_RATE;
+
+// Get settings from database for display
+$stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('delivery_fee', 'tax_rate')");
+$stmt->execute();
+$settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+$deliveryFee = floatval($settings['delivery_fee'] ?? 50.00);
+$taxRate = floatval($settings['tax_rate'] ?? 13.00);
 $taxAmount = ($subtotal * $taxRate) / 100;
 $total = $subtotal + $deliveryFee + $taxAmount;
 ?>
@@ -243,16 +251,16 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                     <a href="my-orders.php" class="btn btn-outline">View My Orders</a>
                 </div>
             </div>
-            <script>
-                // Update cart count immediately
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Hide all cart badges
-                    document.querySelectorAll('.cart-count, .cart-badge').forEach(el => {
-                        el.textContent = '0';
-                        el.style.display = 'none';
-                    });
-                });
-            </script>
+              <script>
+    // Update cart count immediately
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide all cart badges
+        document.querySelectorAll('.cart-count, .cart-badge').forEach(el => {
+            el.textContent = '0';
+            el.style.display = 'none';
+        });
+    });
+    </script>
         <?php else: ?>
             <?php if (!empty($errors)): ?>
                 <div class="alert alert-error">
@@ -313,7 +321,7 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                             <label for="address">Delivery Address *</label>
                             <textarea id="address" name="address" required rows="3"
                                       class="<?php echo isset($errors['address']) ? 'error' : ''; ?>"
-                                      minlength="4" maxlength="255"><?php echo h($formData['address']); ?></textarea>
+                                      minlength="10" maxlength="255"><?php echo h($formData['address']); ?></textarea>
                             <?php if (isset($errors['address'])): ?>
                                 <span class="error-message"><?php echo h($errors['address']); ?></span>
                             <?php endif; ?>
@@ -336,7 +344,7 @@ $total = $subtotal + $deliveryFee + $taxAmount;
                         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                             $productIds = array_keys($_SESSION['cart']);
                             $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
-                            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
+                            $stmt = $pdo->prepare("SELECT * FROM products WHERE id IN ($placeholders) AND is_available = 1");
                             $stmt->execute($productIds);
                             $products = $stmt->fetchAll();
                             

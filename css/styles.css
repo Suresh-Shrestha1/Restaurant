@@ -550,7 +550,7 @@ p {
     display: flex;
     align-items: center;
     min-height: 90vh;
-    padding: 0 var(--space-3xl);
+    padding: 0 var(--space-xl);
     background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
     position: relative;
     overflow: hidden;
@@ -694,7 +694,7 @@ p {
 }
 
 .about-content {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -728,7 +728,7 @@ p {
     color: var(--gray-600);
     margin-bottom: var(--space-lg);
     line-height: 1.8;
-    max-width: 1150px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1296,26 +1296,12 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.2rem;
     padding: var(--space-md) 0;
     border-bottom: 1px solid var(--gray-100);
 }
 
 .summary-item:last-child {
     border-bottom: none;
-}
-
-.total-row{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 2px solid var(--gray-200);
-    padding-top: var(--space-lg);
-}
-
-.total-row:last-child {
-    font-size: 1.1rem;
-    color: var(--gray-900);
 }
 
 .order-success {
@@ -1694,8 +1680,6 @@ p {
     font-size: 0.9rem;
     color: #6c757d;
     margin: 0 0 0.5rem;
-    padding: 18px;
-    text-align: justify;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -2081,7 +2065,7 @@ p {
     }
     
     .hero {
-        flex-direction: column-reverse;
+        flex-direction: column;
         text-align: center;
         padding: var(--space-2xl);
     }
@@ -2100,8 +2084,7 @@ p {
     }
     
     .hero-image img {
-        width: 350px;
-        margin: 0 auto;
+        height: 350px;
     }
     
     .products-grid {
@@ -2112,6 +2095,15 @@ p {
     .cart-item {
         grid-template-columns: 60px 1fr auto;
         gap: 0.75rem;
+    }
+    
+    .item-quantity,
+    .item-total {
+        grid-column: 2 / 4;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
     }
     
     .item-remove {
@@ -2157,10 +2149,6 @@ p {
     
     .page-header h1 {
         font-size: 1.8rem;
-    }
-
-    .quantity-controls {
-        margin-left: 100px;
     }
 }
 
@@ -2290,10 +2278,6 @@ p {
         border-radius: 20px;
     }
     
-    .item-description {
-        display: none;
-    }
-
     .qty-btn {
         width: 30px;
         height: 30px;

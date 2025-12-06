@@ -722,11 +722,11 @@ if ($_POST && isset($_POST['register'])) {
 <div class="auth-container">
     <div class="auth-card">
         <h2>Create Account</h2>
-        <p>Join Maharaja Restaurant today</p>
+        <p>Join Agan Cafe today</p>
         
         <?php if ($success): ?>
             <div class="alert alert-success">
-                <p style="color: #000">
+                <p>
                     <i class="fas fa-check-circle"></i>
                     Account created successfully! <a href="login.php">Click here to login</a>
                 </p>

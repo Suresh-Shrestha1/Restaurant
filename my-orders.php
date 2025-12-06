@@ -46,7 +46,7 @@ $orders = $stmt->fetchAll();
                                 <p class="order-date"><?php echo date('M j, Y g:i A', strtotime($order['created_at'])); ?></p>
                             </div>
                             <div class="order-status">
-                                <span class="status-badge status-<?php echo strtolower($order['status']); ?>">
+                                <span class="status-badge status-<?php echo strtolower(str_replace(' ', '-', $order['status'])); ?>">
                                     <?php echo h($order['status']); ?>
                                 </span>
                             </div>
@@ -66,10 +66,15 @@ $orders = $stmt->fetchAll();
                             <div class="order-items">
                                 <h4>Items Ordered</h4>
                                 <?php
+                                // FIXED: Use LEFT JOIN and COALESCE to handle deleted products
                                 $stmt = $pdo->prepare("
-                                    SELECT oi.*, p.name, p.image 
+                                    SELECT 
+                                        oi.*, 
+                                        COALESCE(oi.product_name, p.name, 'Product Unavailable') as name,
+                                        COALESCE(oi.product_image, p.image) as image,
+                                        CASE WHEN p.id IS NULL THEN 1 ELSE 0 END as is_deleted
                                     FROM order_items oi 
-                                    JOIN products p ON oi.product_id = p.id 
+                                    LEFT JOIN products p ON oi.product_id = p.id 
                                     WHERE oi.order_id = ?
                                 ");
                                 $stmt->execute([$order['id']]);
@@ -78,9 +83,9 @@ $orders = $stmt->fetchAll();
                                 
                                 <div class="items-list">
                                     <?php foreach ($items as $item): ?>
-                                        <div class="item-row">
+                                        <div class="item-row <?php echo $item['is_deleted'] ? 'item-unavailable' : ''; ?>">
                                             <div class="item-image">
-                                                <?php if ($item['image']): ?>
+                                                <?php if ($item['image'] && file_exists('uploads/' . $item['image'])): ?>
                                                     <img src="uploads/<?php echo h($item['image']); ?>" alt="<?php echo h($item['name']); ?>">
                                                 <?php else: ?>
                                                     <div class="no-image">
@@ -89,7 +94,12 @@ $orders = $stmt->fetchAll();
                                                 <?php endif; ?>
                                             </div>
                                             <div class="item-details">
-                                                <span class="item-name"><?php echo h($item['name']); ?></span>
+                                                <span class="item-name">
+                                                    <?php echo h($item['name']); ?>
+                                                    <?php if ($item['is_deleted']): ?>
+                                                        <small class="text-muted">(No longer available)</small>
+                                                    <?php endif; ?>
+                                                </span>
                                                 <span class="item-quantity">x<?php echo $item['quantity']; ?></span>
                                                 <span class="item-unit-price"><?php echo formatCurrency($item['unit_price']); ?> each</span>
                                                 <span class="item-total-price"><?php echo formatCurrency($item['total_price']); ?></span>
@@ -115,7 +125,7 @@ $orders = $stmt->fetchAll();
                             </div>
                             <div class="summary-row total" style="font-weight: bold; font-size: 18px; color: #08420dff;">
                                 <strong>Total:</strong>
-                                <strong> <?php echo formatCurrency($order['total']); ?></strong>
+                                <strong><?php echo formatCurrency($order['total']); ?></strong>
                             </div>
                         </div>
                         
@@ -141,5 +151,17 @@ $orders = $stmt->fetchAll();
     </div>
 </section>
 
+<style>
+.item-unavailable {
+    opacity: 0.7;
+    background-color: #f8f9fa;
+    border-left: 3px solid #dc3545;
+}
+
+.item-unavailable .item-name small {
+    color: #dc3545;
+    font-style: italic;
+}
+</style>
 
 <?php require_once 'includes/footer.php'; ?>

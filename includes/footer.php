@@ -27,8 +27,8 @@
                     <h3>Contact Info</h3>
                     <div class="contact-info">
                         <p><i class="fas fa-map-marker-alt"></i>Balkumari, Lalitpur</p>
-                        <p><i class="fas fa-phone"></i>+977 9817673609</p>
-                        <p><i class="fas fa-envelope"></i> info@agancafe.com</p>
+                        <p><i class="fas fa-phone"></i><a href="tel: 9817673609">+977 9817673609</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto: info@maharajarestaurant.com">info@maharajarestaurant.com</a></p>
                     </div>
                 </div>
                 

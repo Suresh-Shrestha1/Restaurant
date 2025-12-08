@@ -211,7 +211,7 @@ p {
 
 .btn-outline:hover {
     background: var(--primary-600);
-    color: white;
+    color: rgb(70, 66, 66);
     border-color: var(--primary-600);
 }
 

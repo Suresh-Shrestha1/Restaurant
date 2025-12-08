@@ -29,9 +29,13 @@ try {
         die('<div class="error">Order not found</div>');
     }
     
-    // Get order items (make sure your order_items table exists)
+    // Get order items - FIXED QUERY
     $stmt = $pdo->prepare("
-        SELECT oi.*, p.name as product_name 
+        SELECT 
+            oi.*,
+            COALESCE(oi.product_name, p.name, 'Deleted Product') as display_name,
+            COALESCE(oi.unit_price, p.price, 0) as display_price,
+            p.id as product_exists
         FROM order_items oi 
         LEFT JOIN products p ON oi.product_id = p.id 
         WHERE oi.order_id = ?
@@ -63,7 +67,7 @@ try {
                 <label>Phone:</label>
                 <span><?php echo h($order['phone']); ?></span>
             </div>
-            <?php if ($order['email']): ?>
+            <?php if (!empty($order['email'])): ?>
             <div class="info-item">
                 <label>Email:</label>
                 <span><?php echo h($order['email']); ?></span>
@@ -77,12 +81,6 @@ try {
                 <label>Address:</label>
                 <span><?php echo nl2br(h($order['address'])); ?></span>
             </div>
-            <!-- <?php if ($order['delivery_instructions']): ?>
-            <div class="info-item">
-                <label>Instructions:</label>
-                <span><?php echo h($order['delivery_instructions']); ?></span>
-            </div>
-            <?php endif; ?> -->
             <div class="info-item">
                 <label>Payment Method:</label>
                 <span><?php echo h($order['payment_method']); ?></span>
@@ -95,7 +93,7 @@ try {
                 <label>Order Placed:</label>
                 <span><?php echo date('M j, Y g:i A', strtotime($order['created_at'])); ?></span>
             </div>
-            <?php if ($order['delivered_at']): ?>
+            <?php if (!empty($order['delivered_at'])): ?>
             <div class="info-item">
                 <label>Delivered At:</label>
                 <span><?php echo date('M j, Y g:i A', strtotime($order['delivered_at'])); ?></span>
@@ -119,10 +117,15 @@ try {
                 <?php if (!empty($orderItems)): ?>
                     <?php foreach ($orderItems as $item): ?>
                         <tr>
-                            <td><?php echo h($item['product_name']); ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
-                            <td><?php echo formatCurrency($item['unit_price']); ?></td>
-                            <td><?php echo formatCurrency($item['quantity'] * $item['unit_price']); ?></td>
+                            <td>
+                                <?php echo h($item['display_name']); ?>
+                                <?php if (empty($item['product_exists'])): ?>
+                                    <span class="deleted-badge">Deleted</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo (int)$item['quantity']; ?></td>
+                            <td><?php echo formatCurrency($item['display_price']); ?></td>
+                            <td><?php echo formatCurrency($item['quantity'] * $item['display_price']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -147,12 +150,6 @@ try {
             <label>Tax:</label>
             <span><?php echo formatCurrency($order['tax_amount']); ?></span>
         </div>
-        <!-- <?php if ($order['discount_amount'] > 0): ?>
-        <div class="summary-item">
-            <label>Discount:</label>
-            <span>-<?php echo formatCurrency($order['discount_amount']); ?></span>
-        </div>
-        <?php endif; ?> -->
         <div class="summary-item total">
             <label>Total:</label>
             <span><?php echo formatCurrency($order['total']); ?></span>
@@ -161,24 +158,17 @@ try {
 </div>
 
 <style>
-/* ==============================
-   Order Details Page Styling
-   ============================== */
-
 .order-details {
     background: #ffffff;
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     max-width: 1100px;
-    margin: 2rem auto;
+    margin: 0 auto;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     color: #1e293b;
 }
 
-/* ------------------------------
-   Header
------------------------------- */
 .order-header {
     display: flex;
     justify-content: space-between;
@@ -195,9 +185,6 @@ try {
     margin: 0;
 }
 
-/* ------------------------------
-   Status Badge
------------------------------- */
 .status-badge {
     padding: 0.4rem 0.9rem;
     border-radius: 20px;
@@ -214,9 +201,6 @@ try {
 .status-delivered { background: #d4edda; color: #155724; }
 .status-cancelled { background: #f8d7da; color: #721c24; }
 
-/* ------------------------------
-   Info Grid
------------------------------- */
 .order-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -257,9 +241,6 @@ try {
     word-break: break-word;
 }
 
-/* ------------------------------
-   Order Items Table
------------------------------- */
 .order-items {
     margin-bottom: 2.5rem;
 }
@@ -308,13 +289,24 @@ try {
     font-weight: 500;
 }
 
-/* ------------------------------
-   Order Summary
------------------------------- */
+/* Deleted Product Badge */
+.deleted-badge {
+    display: inline-block;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
 .order-summary {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     border-top: 1px solid #e2e8f0;
     padding-top: 1.5rem;
 }
@@ -322,8 +314,8 @@ try {
 .summary-item {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
     width: 100%;
+    max-width: 400px;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }
@@ -350,9 +342,6 @@ try {
     font-weight: 700;
 }
 
-/* ------------------------------
-   Utility Styles
------------------------------- */
 .error {
     background: #fee2e2;
     border: 1px solid #fca5a5;
@@ -365,9 +354,6 @@ try {
     font-weight: 600;
 }
 
-/* ------------------------------
-   Responsive Adjustments
------------------------------- */
 @media (max-width: 768px) {
     .order-details {
         padding: 1.25rem;
@@ -379,7 +365,7 @@ try {
 
     .summary-item {
         width: 100%;
+        max-width: none;
     }
 }
-
 </style>

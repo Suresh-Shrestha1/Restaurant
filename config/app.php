@@ -12,7 +12,7 @@ return [
     // Security Settings
     'session' => [
         'lifetime' => 7200, // 2 hours in seconds
-        'name' => 'agan_session',
+        'name' => 'maharaja_session',
         'secure' => isset($_SERVER['HTTPS']),
         'httponly' => true,
         'samesite' => 'Strict',
@@ -70,18 +70,18 @@ return [
     ],
     
     // Payment Gateway Settings (for future implementation)
-    // 'payment' => [
-    //     'esewa' => [
-    //         'merchant_id' => $_ENV['ESEWA_MERCHANT_ID'] ?? '',
-    //         'secret_key' => $_ENV['ESEWA_SECRET_KEY'] ?? '',
-    //         'success_url' => '/payment/success',
-    //         'failure_url' => '/payment/failure',
-    //     ],
-    //     'khalti' => [
-    //         'public_key' => $_ENV['KHALTI_PUBLIC_KEY'] ?? '',
-    //         'secret_key' => $_ENV['KHALTI_SECRET_KEY'] ?? '',
-    //     ],
-    // ],
+    'payment' => [
+        'esewa' => [
+            'merchant_id' => $_ENV['ESEWA_MERCHANT_ID'] ?? '',
+            'secret_key' => $_ENV['ESEWA_SECRET_KEY'] ?? '',
+            'success_url' => '/payment/success',
+            'failure_url' => '/payment/failure',
+        ],
+        'khalti' => [
+            'public_key' => $_ENV['KHALTI_PUBLIC_KEY'] ?? '',
+            'secret_key' => $_ENV['KHALTI_SECRET_KEY'] ?? '',
+        ],
+    ],
     
     // Logging Settings
     'logging' => [

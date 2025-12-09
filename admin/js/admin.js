@@ -1,4 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Simple auto-dismiss - add this before footer
+setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(function(alert) {
+        alert.style.transition = 'opacity 0.5s, transform 0.5s';
+        alert.style.opacity = '0';
+        alert.style.transform = 'translateY(-20px)';
+        setTimeout(function() {
+            alert.remove();
+        }, 500);
+    });
+}, 4000); document.addEventListener('DOMContentLoaded', function() {
     // Auto-submit status forms
     const statusSelects = document.querySelectorAll('.status-form select');
     statusSelects.forEach(select => {

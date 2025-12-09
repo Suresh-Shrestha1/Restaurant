@@ -63,6 +63,9 @@ requireAdminLogin();
                 <li><a href="orders.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'orders.php' ? 'active' : ''; ?>">
                     <i class="fas fa-shopping-cart"></i> Orders
                 </a></li>
+                <li><a href="feedback.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'feedback.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-comments"></i> Feedback
+                </a></li>
                 <li><a href="../index.php" target="_blank">
                     <i class="fas fa-external-link-alt"></i> View Website
                 </a></li>

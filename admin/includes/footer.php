@@ -7,7 +7,6 @@
         <p>Thank You !</p>
     </div>
 </footer>
-
 <style>
 .admin-footer {
     background-color: #f8f9fa;
@@ -38,5 +37,6 @@ p{
 }
 </style>
 
+<script src="js/admin.js"></script>
 </body>
 </html>

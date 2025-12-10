@@ -81,10 +81,6 @@ try {
                 <label>Address:</label>
                 <span><?php echo nl2br(h($order['address'])); ?></span>
             </div>
-            <div class="info-item">
-                <label>Payment Method:</label>
-                <span><?php echo h($order['payment_method']); ?></span>
-            </div>
         </div>
         
         <div class="info-section">

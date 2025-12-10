@@ -93,7 +93,6 @@ CREATE TABLE `orders` (
   `tax_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `total` decimal(10,2) NOT NULL,
   `status` enum('Pending','Confirmed','Preparing','Out for Delivery','Delivered','Cancelled') DEFAULT 'Pending',
-  `payment_method` enum('Cash on Delivery','') DEFAULT 'Cash on Delivery',
   `delivered_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -103,10 +102,10 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `order_number`, `name`, `phone`, `email`, `address`, `subtotal`, `delivery_fee`, `tax_amount`, `total`, `status`, `payment_method`, `delivered_at`, `created_at`, `updated_at`) VALUES
-(1, 2, 'ORD000001', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 300.00, 50.00, 39.00, 389.00, 'Delivered', 'Cash on Delivery', '2025-12-06 05:20:56', '2025-12-04 12:31:41', '2025-12-06 07:01:18'),
-(2, 2, 'ORD000002', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 45.00, 50.00, 5.85, 100.85, 'Pending', 'Cash on Delivery', NULL, '2025-12-06 05:55:30', '2025-12-06 07:01:24'),
-(3, 2, 'ORD000003', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 20.00, 50.00, 2.60, 72.60, 'Pending', 'Cash on Delivery', NULL, '2025-12-06 06:54:39', '2025-12-06 07:01:29');
+INSERT INTO `orders` (`id`, `user_id`, `order_number`, `name`, `phone`, `email`, `address`, `subtotal`, `delivery_fee`, `tax_amount`, `total`, `status`, `delivered_at`, `created_at`, `updated_at`) VALUES
+(1, 2, 'ORD000001', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 300.00, 50.00, 39.00, 389.00, 'Delivered', '2025-12-06 05:20:56', '2025-12-04 12:31:41', '2025-12-06 07:01:18'),
+(2, 2, 'ORD000002', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 45.00, 50.00, 5.85, 100.85, 'Pending', NULL, '2025-12-06 05:55:30', '2025-12-06 07:01:24'),
+(3, 2, 'ORD000003', 'Sujan Shakya', '9848838858', 'sujan12@gmail.com', 'Gwarko, Lalitpur', 20.00, 50.00, 2.60, 72.60, 'Pending', NULL, '2025-12-06 06:54:39', '2025-12-06 07:01:29');
 
 --
 -- Triggers `orders`
@@ -172,7 +171,6 @@ CREATE TABLE `order_status_history` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `status` varchar(50) NOT NULL,
-  `notes` text DEFAULT NULL,
   `changed_by_admin_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -181,11 +179,11 @@ CREATE TABLE `order_status_history` (
 -- Dumping data for table `order_status_history`
 --
 
-INSERT INTO `order_status_history` (`id`, `order_id`, `status`, `notes`, `changed_by_admin_id`, `created_at`) VALUES
-(1, 1, 'Pending', 'Order placed successfully', NULL, '2025-12-04 12:31:41'),
-(2, 1, 'Delivered', '', 1, '2025-12-06 05:20:56'),
-(3, 2, 'Pending', 'Order placed successfully', NULL, '2025-12-06 05:55:30'),
-(4, 3, 'Pending', 'Order placed successfully', NULL, '2025-12-06 06:54:39');
+INSERT INTO `order_status_history` (`id`, `order_id`, `status`, `changed_by_admin_id`, `created_at`) VALUES
+(1, 1, 'Pending', NULL, '2025-12-04 12:31:41'),
+(2, 1, 'Delivered', 1, '2025-12-06 05:20:56'),
+(3, 2, 'Pending', NULL, '2025-12-06 05:55:30'),
+(4, 3, 'Pending', NULL, '2025-12-06 06:54:39');
 
 -- --------------------------------------------------------
 

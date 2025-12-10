@@ -9,7 +9,6 @@ if ($_POST && isset($_POST['update_status'])) {
     
     $orderId = (int)$_POST['order_id'];
     $newStatus = $_POST['status'];
-    $notes = sanitize($_POST['notes'] ?? '');
     
     $validStatuses = ['Pending', 'Confirmed', 'Preparing', 'Out for Delivery', 'Delivered', 'Cancelled'];
     
@@ -23,10 +22,10 @@ if ($_POST && isset($_POST['update_status'])) {
             
             // Add to status history
             $stmt = $pdo->prepare("
-                INSERT INTO order_status_history (order_id, status, notes, changed_by_admin_id) 
-                VALUES (?, ?, ?, ?)
+                INSERT INTO order_status_history (order_id, status, changed_by_admin_id) 
+                VALUES (?, ?, ?)
             ");
-            $stmt->execute([$orderId, $newStatus, $notes, $_SESSION['admin_id']]);
+            $stmt->execute([$orderId, $newStatus, $_SESSION['admin_id']]);
             
             // Set delivery timestamp if delivered
             if ($newStatus === 'Delivered') {
@@ -338,12 +337,6 @@ $stats = $pdo->query($statsQuery)->fetch();
                 </select>
             </div>
             
-            <div class="form-group">
-                <label for="statusNotes">Notes (optional):</label>
-                <textarea name="notes" id="statusNotes" rows="3" 
-                          placeholder="Add any notes about this status change..."></textarea>
-            </div>
-            
             <div class="form-actions">
                 <button type="button" onclick="closeStatusModal()" class="btn btn-outline">Cancel</button>
                 <button type="submit" class="btn btn-primary">Update Status</button>
@@ -475,17 +468,6 @@ $stats = $pdo->query($statsQuery)->fetch();
     height: fit-content;
 }
 
-/* @media (max-width: 768px) {
-    .filter-form {
-        grid-template-columns: 1fr;
-    }
-
-    .filter-form .btn,
-    .filter-form .btn-outline {
-        width: 100%;
-    }
-} */
-
 .filter-form input::placeholder {
     color: #adb5bd;
 }
@@ -529,9 +511,9 @@ $stats = $pdo->query($statsQuery)->fetch();
     font-size: 0.875rem;
 }
 
-/* ====== Status Modal Styles ====== */
+/* ====== Modal Styles ====== */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -543,7 +525,6 @@ $stats = $pdo->query($statsQuery)->fetch();
     animation: fadeIn 0.3s ease;
 }
 
-/* Center modal content */
 .modal-content {
     background-color: #fff;
     margin: 5% auto;
@@ -556,7 +537,6 @@ $stats = $pdo->query($statsQuery)->fetch();
     overflow: hidden;
 }
 
-/* Modal Header */
 .modal-header {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
@@ -601,8 +581,7 @@ $stats = $pdo->query($statsQuery)->fetch();
     color: #2c3e50;
 }
 
-#statusForm select,
-#statusForm textarea {
+#statusForm select {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ddd;
@@ -611,8 +590,7 @@ $stats = $pdo->query($statsQuery)->fetch();
     transition: border-color 0.3s ease;
 }
 
-#statusForm select:focus,
-#statusForm textarea:focus {
+#statusForm select:focus {
     border-color: #e74c3c;
     outline: none;
 }
@@ -704,7 +682,6 @@ function refreshOrders() {
     location.reload();
 }
 
-// Close modals when clicking outside
 window.onclick = function(event) {
     const orderModal = document.getElementById('orderModal');
     const statusModal = document.getElementById('statusModal');

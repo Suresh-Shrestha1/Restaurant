@@ -180,8 +180,8 @@ if ($_POST && isset($_POST['place_order'])) {
             
             // Add initial status to order history
             $stmt = $pdo->prepare("
-                INSERT INTO order_status_history (order_id, status, notes) 
-                VALUES (?, 'Pending', 'Order placed successfully')
+                INSERT INTO order_status_history (order_id, status) 
+                VALUES (?, 'Pending')
             ");
             $stmt->execute([$orderId]);
             

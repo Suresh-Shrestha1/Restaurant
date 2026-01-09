@@ -141,7 +141,7 @@ require_once 'includes/header.php';
                 </div>
             </div>
             
-            <?php if ($loginType === 'user'): ?>
+            <!-- <?php if ($loginType === 'user'): ?>
             <div class="form-group remember-forgot">
                 <label class="checkbox-container">
                     <input type="checkbox" name="remember_me" value="1">
@@ -150,7 +150,7 @@ require_once 'includes/header.php';
                 </label>
                 <a href="forgot-password.php" class="forgot-link">Forgot password?</a>
             </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
             
             <button type="submit" name="login" class="btn btn-primary btn-full">
                 <i class="fas fa-sign-in-alt"></i>

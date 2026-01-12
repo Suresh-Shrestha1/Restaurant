@@ -32,7 +32,6 @@ CREATE TABLE `admin_users` (
   `username` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
   `last_login_at` timestamp NULL DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -43,8 +42,8 @@ CREATE TABLE `admin_users` (
 -- Dumping data for table `admin_users`
 --
 
-INSERT INTO `admin_users` (`id`, `username`, `email`, `password`, `name`, `last_login_at`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin_rest@gmail.com', 'Admin123', 'Main Admin', '2025-12-06 06:33:47', 1, '2025-11-12 08:46:09', '2025-12-06 06:33:47');
+INSERT INTO `admin_users` (`id`, `username`, `email`, `password`, `last_login_at`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin_rest@gmail.com', 'Admin123', '2025-12-06 06:33:47', 1, '2025-11-12 08:46:09', '2025-12-06 06:33:47');
 
 -- --------------------------------------------------------
 

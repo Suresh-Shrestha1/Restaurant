@@ -1088,15 +1088,15 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ==========================
        Form submit (FIXED)
     ========================== */
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            // Let the browser handle submission first, then show loading state
-            setTimeout(() => {
-                submitBtn.classList.add('loading');
-                submitBtn.disabled = true;
-            }, 10);
-        });
-    }
+    // if (form) {
+    //     form.addEventListener('submit', function(e) {
+    //         // Let the browser handle submission first, then show loading state
+    //         setTimeout(() => {
+    //             submitBtn.classList.add('loading');
+    //             submitBtn.disabled = true;
+    //         }, 10);
+    //     });
+    // }
 
     /* ==========================
        Autofocus first field

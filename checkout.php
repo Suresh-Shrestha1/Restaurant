@@ -506,16 +506,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -569,6 +559,7 @@ small {
     background-color: #e3f2fd;
     border-left: 4px solid #2196f3;
     border-radius: 4px;
+    color: #000;
 }
 
 .user-info strong {
